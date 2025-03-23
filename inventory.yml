@@ -20,5 +20,5 @@ all:
     ansible_become_password: passwordhere
     ansible_python_interpreter: /usr/bin/python3
     ansible_ssh_common_args: '-o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null -o ServerAliveInterval=60 -o ServerAliveCountMax=5'
-    k3s_version: v1.27.5+k3s1
+    k3s_version: v1.31.6+k3s1
     k3s_token: "9d52661d116e76f0cf9840ff839ceb408831be62935361da7816c907baa4db9d"
