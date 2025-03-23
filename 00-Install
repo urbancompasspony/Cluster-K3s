@@ -3,7 +3,7 @@
 Gerar KEY
 openssl rand -hex 32
 
-Sistema recém instalado:
+Sistema Operacional recém instalado:
 ansible-playbook -i inventory.yml 01-Prepare.yml
 
 Configurar keepalived:
