@@ -1,0 +1,22 @@
+---
+# cleanup-k3s.yml
+- name: Remover completamente o cluster K3s
+  hosts: all
+  become: true
+  tasks:
+    - name: Parar e desabilitar o serviço keepalived
+      systemd:
+        name: keepalived
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+    - name: Remover diretório de configuração do Keepalived
+      file:
+        path: /etc/keepalived
+        state: absent
+      ignore_errors: yes
+
+    - name: Remover o IP virtual das interfaces
+      shell: ip addr del {{ virtual_ip }}/24 dev eth0
+      ignore_errors: yes
