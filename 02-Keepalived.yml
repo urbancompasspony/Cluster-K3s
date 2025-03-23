@@ -1,0 +1,46 @@
+---
+- name: Configurar master K3s
+  hosts: master
+  become: true
+  tasks:
+    - name: Garantir que a pasta /etc/keepalived exista
+      file:
+        path: /etc/keepalived
+        state: directory
+        mode: '0755'
+
+    - name: Configurar keepalived (master)
+      template:
+        src: keepalived-master.conf.j2
+        dest: /etc/keepalived/keepalived.conf
+      notify: Reiniciar keepalived
+
+  handlers:
+    - name: Reiniciar keepalived
+      service:
+        name: keepalived
+        state: restarted
+        enabled: yes
+
+- name: Configurar workers K3s
+  hosts: workers
+  become: true
+  tasks:
+    - name: Garantir que a pasta /etc/keepalived exista
+      file:
+        path: /etc/keepalived
+        state: directory
+        mode: '0755'
+
+    - name: Configurar keepalived (worker)
+      template:
+        src: keepalived-backup.conf.j2
+        dest: /etc/keepalived/keepalived.conf
+      notify: Reiniciar keepalived
+
+  handlers:
+    - name: Reiniciar keepalived
+      service:
+        name: keepalived
+        state: restarted
+        enabled: yes
