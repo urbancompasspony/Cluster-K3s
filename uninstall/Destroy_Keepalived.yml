@@ -1,5 +1,4 @@
 ---
-# cleanup-k3s.yml
 - name: Remover completamente o cluster K3s
   hosts: all
   become: true
