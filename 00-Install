@@ -1,0 +1,42 @@
+---
+
+Gerar KEY
+openssl rand -hex 32
+
+Sistema recém instalado:
+ansible-playbook -i inventory.yml 01-Prepare.yml
+
+Configurar keepalived:
+ansible-playbook -i inventory.yml 02-Keepalived.yml
+
+Configurar Cluster K3s:
+ansible-playbook -i inventory.yml 03-Cluster.yml
+
+---
+
+Reiniciar:
+ansible-playbook -i inventory.yml uninstall/reboot.yml
+
+Desligar:
+ansible-playbook -i inventory.yml uninstall/shutdown.yml
+
+---
+
+Destroy everything:
+ansible-playbook -i inventory.yml uninstall/keepalived.yml
+ansible-playbook -i inventory.yml uninstall/cluster.yml
+
+Limpar a tabela DHCP Lease do pfSense e... on Client (EndeavourOS)
+ssh-keygen -R 172.20.0.61; ssh-keygen -R 172.20.0.62; ssh-keygen -R 172.20.0.63; ssh-keygen -R 172.20.0.64
+
+---
+
+Portainer Web Manager on MASTER:
+sudo kubectl apply -n portainer -f https://raw.githubusercontent.com/portainer/k8s/master/deploy/manifests/portainer/portainer.yaml
+AND WAIT. Take some time.
+
+---
+
+KTOP:
+sudo usermod -aG docker administrador; mkdir ~/.kube 2> /dev/null; sudo k3s kubectl config view --raw > ".kube/config"; chmod 777 ".kube/config"
+docker run --network=host --rm --platform="linux/arm64" -it -v /home/administrador/.kube/config:/config -e KUBECONFIG=/config -e TERM=xterm-256color ghcr.io/vladimirvivien/ktop:latest
