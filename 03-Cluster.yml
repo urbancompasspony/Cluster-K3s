@@ -13,7 +13,7 @@
           --kube-controller-manager-arg="bind-address=0.0.0.0" \
           --kube-scheduler-arg="bind-address=0.0.0.0" \
           --kube-proxy-arg="metrics-bind-address=0.0.0.0" \
-          --node-taint "node-role.kubernetes.io/master=effect:NoSchedule"
+          --node-taint "node-role.kubernetes.io/master=true:NoSchedule"
       args:
         creates: /usr/local/bin/k3s
 
