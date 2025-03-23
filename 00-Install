@@ -12,6 +12,16 @@ ansible-playbook -i inventory.yml 02-Keepalived.yml
 Configurar Cluster K3s:
 ansible-playbook -i inventory.yml 03-Cluster.yml
 
+My PC:
+Edit kubeconfig to IP_MASTER
+then...
+sudo cp kubeconfig /root/.kube/config
+
+Check everything:
+sudo kubectl get pods -o wide --all-namespaces
+sudo kubectl get nodes -o wide
+sudo kubectl top nodes
+
 ---
 
 Reiniciar:
