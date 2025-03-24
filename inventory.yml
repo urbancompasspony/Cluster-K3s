@@ -11,7 +11,7 @@ all:
           ansible_host: 172.20.0.63
     master:
       hosts:
-        k3s-master:
+        k3s-master0:
           ansible_host: 172.20.0.64
   vars:
     virtual_ip: 172.20.0.65
