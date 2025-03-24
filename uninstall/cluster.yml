@@ -20,7 +20,8 @@
       with_items:
         - /etc/rancher
         - /var/lib/rancher
-        - /etc/keepalived
+        - /var/log/pods
+        - /var/lib/kubelet
 
     - name: Remover arquivos kubeconfig
       file:
